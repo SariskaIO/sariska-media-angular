@@ -2,6 +2,7 @@
   "name": "angular-sdk",
   "version": "0.0.0",
   "scripts": {
+    "transpile": "ngc",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -20,7 +21,6 @@
     "@angular/platform-browser": "~11.0.0",
     "@angular/platform-browser-dynamic": "~11.0.0",
     "@angular/router": "~11.0.0",
-    "ngx-audio-player": "^8.1.1",
     "rxjs": "~6.6.0",
     "sariska-media-transport": "git+https://github.com/brajendrak00068/sariska-media-transport.git",
     "tslib": "^2.0.0",
