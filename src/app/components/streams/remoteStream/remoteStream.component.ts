@@ -1,12 +1,11 @@
 import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from "@angular/core";
-import { RemoteStreamService } from 'src/app/services/streams/remoteStream/remoteStream.service';
 
 @Component({
-    selector: 'remote-stream',
+    selector: 'app-remote-stream',
     template: `
     <div>
-            <div *ngFor="let track of remoteTracks ; index as i>
-                <ng-container *ngIf="track.isVideoTrack(); then video; else         audio">
+            <div *ngFor="let track of remoteTracks[0] ; index as i">
+                <ng-container *ngIf="track.isVideoTrack(); then video; else audio">
                 </ng-container>
                 <ng-template #video>
                     <video-track [key]="i" [track]="track"></video-track>
@@ -18,8 +17,14 @@ import { RemoteStreamService } from 'src/app/services/streams/remoteStream/remot
         </div>
             `
         })
-export class RemoteStreamComponent {
+export class RemoteStreamComponent implements OnChanges {
     constructor(){}
 
     @Input() remoteTracks: any
+
+    ngOnChanges(changes: SimpleChanges){
+      console.log('change local', changes.remoteTracks.currentValue);
+      console.log('lythcremote', this.remoteTracks[0]);
+
+    }
 }

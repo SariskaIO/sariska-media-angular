@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, ViewChild } from "@angular/core";
 
 
 @Component({
@@ -10,27 +10,27 @@ import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } fro
     `
 })
 export class AudioTrackComponent implements AfterViewInit, OnDestroy {
-    constructor(){}
+    constructor(private cdRef: ChangeDetectorRef ){}
 
     @Input() track: any;
     newTrack: any;
 
-    setNewTrack = ( track) => {
-        this.newTrack=track;
-    }
 
     @ViewChild('audioOption') audioPlayerRef: ElementRef;
 
 
     ngAfterViewInit(){
         const element = this.audioPlayerRef.nativeElement;
-        this.setNewTrack(this.audioPlayerRef.nativeElement);
-        this.track.attach(element);   
+        this.newTrack= this.audioPlayerRef.nativeElement;
+        this.track.attach(element);
+        element.play();
+
+        this.cdRef.detectChanges();
     }
 
     ngOnDestroy(){
         this.track.detach(this.newTrack);
     }
-    
+
 
 }

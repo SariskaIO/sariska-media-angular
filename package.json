@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "~11.0.0",
     "@angular/router": "~11.0.0",
     "rxjs": "~6.6.0",
-    "sariska-media-transport": "git+https://github.com/brajendrak00068/sariska-media-transport.git",
+    "sariska-media-transport": "git+https://github.com/SariskaIO/sariska-media-transport.git#bk--ts",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

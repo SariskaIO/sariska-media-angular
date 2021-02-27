@@ -1,11 +1,10 @@
 import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from "@angular/core";
-import { LocalStremService } from 'src/app/services/streams/localStream/localStream.service';
 
 @Component({
-    selector: 'local-stream',
+    selector: 'app-local-stream',
     template: `
                 <div>
-                    <div *ngFor="let track of localTracks ; index as i>
+                    <div *ngFor="let track of localTracks[0] ; index as i">
                         <ng-container *ngIf="track.isVideoTrack(); then video; else audio">
                         </ng-container>
                         <ng-template #video>
@@ -18,10 +17,17 @@ import { LocalStremService } from 'src/app/services/streams/localStream/localStr
                 </div>
     `
 })
-export class LocalStreamComponent {
-    
+export class LocalStreamComponent implements OnChanges{
+
     constructor(){}
 
-    @Input() localTracks: any
+    @Input() localTracks: any[];
+    newLocalTracks: any = [];
+
+    ngOnChanges(changes: SimpleChanges){
+      console.log('change local', changes.localTracks.currentValue);
+      console.log('lythc', this.localTracks[0]);
+
+    }
 
 }

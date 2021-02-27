@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import {ConnectionComponent} from './components/connection/connection.component';
 import { ConstantsService } from './services/constants/constants.service';
@@ -26,7 +27,7 @@ import { VideoTrackComponent } from './components/players/videoTrack/videoTrack.
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxAudioPlayerModule
+    HttpClientModule
   ],
   providers: [
                 ConstantsService,
