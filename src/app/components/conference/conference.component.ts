@@ -11,7 +11,7 @@ import { ConstantsService } from "src/app/services/constants/constants.service";
                 </div>
     `
 })
-export class ConferenceComponent implements OnInit, OnChanges, OnDestroy{
+export class ConferenceComponent implements OnChanges, OnDestroy{
     constructor(private constantsService: ConstantsService){}
 
     @Input() connection: any
@@ -24,12 +24,9 @@ export class ConferenceComponent implements OnInit, OnChanges, OnDestroy{
 
     setLocalTracks = (track) => {
       this.localTracks= [...this.localTracks, track]
-      console.log('localthis', this.localTracks);
     }
     setRemoteTracks = (track) => {
         this.remoteTracks= [...this.remoteTracks, track];
-        console.log('remotethis', this.remoteTracks);
-
     }
 
     ngOnChanges(changes: SimpleChanges){
@@ -37,7 +34,6 @@ export class ConferenceComponent implements OnInit, OnChanges, OnDestroy{
       SariskaMediaTransport.createLocalTracks({devices:["audio", "video"], resolution: "180"}).
       then(tracks => {
           this.setLocalTracks(tracks);
-          console.log('set in loc', this.localTracks)
           this.room && tracks.forEach(track=>this.room.addTrack(track).catch(err =>console.log("track already added")));
       }).
       catch(()=>console.log("failed to fetch tracks"));
@@ -73,11 +69,6 @@ export class ConferenceComponent implements OnInit, OnChanges, OnDestroy{
       room.on(SariskaMediaTransport.events.conference.TRACK_ADDED, onRemoteTrack);
       room.on(SariskaMediaTransport.events.conference.TRACK_REMOVED, onTrackRemoved);
       room.join();
-
-    }
-
-    ngOnInit(){
-      console.log('initcon', this.connection);
 
     }
 

@@ -25,13 +25,14 @@ export class ConnectionComponent implements OnInit, OnDestroy{
         SariskaMediaTransport.setLogLevel(SariskaMediaTransport.logLevels.ERROR); //TRACE ,DEBUG, INFO, LOG, WARN, ERROR
 
         let conn: any = null;
-        console.log('onint', Date.now());
 
         const fetchData =  async ()=>{
             (await this.utilsService.getToken()).subscribe(
               (val: any) => {
-                  console.log("POST call successful value returned in body",
-                              val);
+
+            if (!val.token) {
+                return;
+            }
                               this.token = val.token;
                               conn = new SariskaMediaTransport.JitsiConnection(val.token, this.constantsService.connectionConfig);
             conn.addEventListener(SariskaMediaTransport.events.connection.CONNECTION_ESTABLISHED, onConnectionSuccess);
@@ -39,7 +40,6 @@ export class ConnectionComponent implements OnInit, OnDestroy{
             conn.addEventListener(SariskaMediaTransport.events.connection.CONNECTION_DISCONNECTED, onConnectionDisconnected);
             conn.addEventListener(SariskaMediaTransport.events.connection.PASSWORD_REQUIRED, onConnectionDisconnected);
             conn.connect();
-            console.log("POST call in value", conn);
               },
               response => {
                   console.log("POST call in error", response);
@@ -48,18 +48,11 @@ export class ConnectionComponent implements OnInit, OnDestroy{
               () => {
                   console.log("The POST observable is now completed.");
               });
-              console.log('tkoe', this.token);
-
-              console.log('onint1', Date.now());
-            // if (!token) {
-            //     return;
-            // }
 
         }
 
         const onConnectionSuccess = ()=>{
             this.connection = conn;
-            console.log('conne', this.connection)
         }
 
 

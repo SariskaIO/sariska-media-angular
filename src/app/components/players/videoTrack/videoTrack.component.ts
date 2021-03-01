@@ -19,7 +19,6 @@ export class VideoTrackComponent implements OnChanges, AfterViewInit, OnDestroy 
 
 
     ngOnChanges(changes: SimpleChanges){
-      console.log('vid', changes);
       this.newTrack=changes.track.currentValue;
     }
 
@@ -27,7 +26,6 @@ export class VideoTrackComponent implements OnChanges, AfterViewInit, OnDestroy 
 
 
     ngAfterViewInit(){
-      console.log('view', this.newTrack);
         const element = this.videoPlayerRef.nativeElement;
         this.newTrack=this.videoPlayerRef.nativeElement;
         this.track.attach(element);

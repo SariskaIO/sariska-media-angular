@@ -4,7 +4,7 @@ import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from "@angul
     selector: 'app-remote-stream',
     template: `
     <div>
-            <div *ngFor="let track of remoteTracks[0] ; index as i">
+            <div *ngFor="let track of newRemoteTracks[0] ; index as i">
                 <ng-container *ngIf="track.isVideoTrack(); then video; else audio">
                 </ng-container>
                 <ng-template #video>
@@ -20,11 +20,11 @@ import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from "@angul
 export class RemoteStreamComponent implements OnChanges {
     constructor(){}
 
-    @Input() remoteTracks: any
+    @Input() remoteTracks: any;
+    newRemoteTracks: any;
 
     ngOnChanges(changes: SimpleChanges){
-      console.log('change local', changes.remoteTracks.currentValue);
-      console.log('lythcremote', this.remoteTracks[0]);
+      this.newRemoteTracks = changes.remoteTracks.currentValue;
 
     }
 }

@@ -4,7 +4,7 @@ import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from "@angul
     selector: 'app-local-stream',
     template: `
                 <div>
-                    <div *ngFor="let track of localTracks[0] ; index as i">
+                    <div *ngFor="let track of newLocalTracks[0] ; index as i">
                         <ng-container *ngIf="track.isVideoTrack(); then video; else audio">
                         </ng-container>
                         <ng-template #video>
@@ -25,8 +25,7 @@ export class LocalStreamComponent implements OnChanges{
     newLocalTracks: any = [];
 
     ngOnChanges(changes: SimpleChanges){
-      console.log('change local', changes.localTracks.currentValue);
-      console.log('lythc', this.localTracks[0]);
+      this.newLocalTracks = changes.localTracks.currentValue;
 
     }
 
