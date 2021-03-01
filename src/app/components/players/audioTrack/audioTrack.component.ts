@@ -2,18 +2,14 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestr
 
 
 @Component({
-    selector: 'audio-track',
-    template: `
-                <audio #audioOption>
-                    <source src="track" type="audio/mp3" autoplay="true">
-                </audio>
-    `
+    selector: 'app-audio-track',
+    template: `<audio autoplay="true" #audioOption></audio>`
 })
+
 export class AudioTrackComponent implements AfterViewInit, OnDestroy {
     constructor(private cdRef: ChangeDetectorRef ){}
 
     @Input() track: any;
-    newTrack: any;
 
 
     @ViewChild('audioOption') audioPlayerRef: ElementRef;
@@ -21,16 +17,11 @@ export class AudioTrackComponent implements AfterViewInit, OnDestroy {
 
     ngAfterViewInit(){
         const element = this.audioPlayerRef.nativeElement;
-        this.newTrack= this.audioPlayerRef.nativeElement;
         this.track.attach(element);
-        element.play();
-
-        this.cdRef.detectChanges();
     }
 
     ngOnDestroy(){
-        this.track.detach(this.newTrack);
+        const element = this.audioPlayerRef.nativeElement;
+        this.track.detach(element);
     }
-
-
 }
