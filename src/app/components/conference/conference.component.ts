@@ -1,5 +1,5 @@
 import { Component, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from "@angular/core";
-import JitsiMeetJS from 'sariska-media-transport';
+import SariskaMediaTransport from 'sariska-media-transport';
 import { ConstantsService } from "src/app/services/constants/constants.service";
 
 @Component({
@@ -34,7 +34,7 @@ export class ConferenceComponent implements OnInit, OnChanges, OnDestroy{
 
     ngOnChanges(changes: SimpleChanges){
       this.newConn=changes.connection.currentValue;
-      JitsiMeetJS.createLocalTracks({devices:["audio", "video"], resolution: "180"}).
+      SariskaMediaTransport.createLocalTracks({devices:["audio", "video"], resolution: "180"}).
       then(tracks => {
           this.setLocalTracks(tracks);
           console.log('set in loc', this.localTracks)
@@ -69,9 +69,9 @@ export class ConferenceComponent implements OnInit, OnChanges, OnDestroy{
           this.setRemoteTracks(track);
       }
 
-      room.on(JitsiMeetJS.events.conference.CONFERENCE_JOINED, onConferenceJoined);
-      room.on(JitsiMeetJS.events.conference.TRACK_ADDED, onRemoteTrack);
-      room.on(JitsiMeetJS.events.conference.TRACK_REMOVED, onTrackRemoved);
+      room.on(SariskaMediaTransport.events.conference.CONFERENCE_JOINED, onConferenceJoined);
+      room.on(SariskaMediaTransport.events.conference.TRACK_ADDED, onRemoteTrack);
+      room.on(SariskaMediaTransport.events.conference.TRACK_REMOVED, onTrackRemoved);
       room.join();
 
     }

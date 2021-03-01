@@ -1,5 +1,5 @@
 import { Component, DoCheck, OnChanges, OnDestroy, OnInit } from "@angular/core";
-import JitsiMeetJS from 'sariska-media-transport';
+import SariskaMediaTransport from 'sariska-media-transport';
 import { ConstantsService } from "src/app/services/constants/constants.service";
 import { UtilsService } from "src/app/services/utils/utils.service";
 
@@ -17,12 +17,12 @@ export class ConnectionComponent implements OnInit, OnDestroy{
 
 
     updateNetwork = ()=>{  //  set internet connectivity status
-        JitsiMeetJS.setNetworkInfo({isOnline: window.navigator.onLine});
+        SariskaMediaTransport.setNetworkInfo({isOnline: window.navigator.onLine});
     }
 
     ngOnInit(){
-        JitsiMeetJS.init(this.constantsService.initSDKConfig);
-        JitsiMeetJS.setLogLevel(JitsiMeetJS.logLevels.ERROR); //TRACE ,DEBUG, INFO, LOG, WARN, ERROR
+        SariskaMediaTransport.init(this.constantsService.initSDKConfig);
+        SariskaMediaTransport.setLogLevel(SariskaMediaTransport.logLevels.ERROR); //TRACE ,DEBUG, INFO, LOG, WARN, ERROR
 
         let conn: any = null;
         console.log('onint', Date.now());
@@ -33,11 +33,11 @@ export class ConnectionComponent implements OnInit, OnDestroy{
                   console.log("POST call successful value returned in body",
                               val);
                               this.token = val.token;
-                              conn = new JitsiMeetJS.JitsiConnection(val.token, this.constantsService.connectionConfig);
-            conn.addEventListener(JitsiMeetJS.events.connection.CONNECTION_ESTABLISHED, onConnectionSuccess);
-            conn.addEventListener(JitsiMeetJS.events.connection.CONNECTION_FAILED, onConnectionFailed);
-            conn.addEventListener(JitsiMeetJS.events.connection.CONNECTION_DISCONNECTED, onConnectionDisconnected);
-            conn.addEventListener(JitsiMeetJS.events.connection.PASSWORD_REQUIRED, onConnectionDisconnected);
+                              conn = new SariskaMediaTransport.JitsiConnection(val.token, this.constantsService.connectionConfig);
+            conn.addEventListener(SariskaMediaTransport.events.connection.CONNECTION_ESTABLISHED, onConnectionSuccess);
+            conn.addEventListener(SariskaMediaTransport.events.connection.CONNECTION_FAILED, onConnectionFailed);
+            conn.addEventListener(SariskaMediaTransport.events.connection.CONNECTION_DISCONNECTED, onConnectionDisconnected);
+            conn.addEventListener(SariskaMediaTransport.events.connection.PASSWORD_REQUIRED, onConnectionDisconnected);
             conn.connect();
             console.log("POST call in value", conn);
               },
@@ -69,13 +69,13 @@ export class ConnectionComponent implements OnInit, OnDestroy{
                 return;
             }
             this.connection.removeEventListener(
-                JitsiMeetJS.events.connection.CONNECTION_ESTABLISHED,
+                SariskaMediaTransport.events.connection.CONNECTION_ESTABLISHED,
                 onConnectionSuccess);
             this.connection.removeEventListener(
-                JitsiMeetJS.events.connection.CONNECTION_FAILED,
+                SariskaMediaTransport.events.connection.CONNECTION_FAILED,
                 onConnectionFailed);
             this.connection.removeEventListener(
-                JitsiMeetJS.events.connection.CONNECTION_DISCONNECTED,
+                SariskaMediaTransport.events.connection.CONNECTION_DISCONNECTED,
                 onConnectionDisconnected);
         }
 
